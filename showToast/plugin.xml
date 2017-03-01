@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="my-plugin-showToast"
+    version="0.0.1">
+    <name>ShowToast</name>
+    <description>this is the plugin witch use js to call Toast</description>
+
+    <js-module src="www/showToast.js">
+        <clobbers target="myPlugin.showToast"/>
+    </js-module>
+
+    <platform name="android">
+        <source-file src="src/android/ShowToast.java" target-dir="src/myPlugin/showtoast"/>
+
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="ShowToast">
+                <param name="android-package" value="myPlugin.showtoast.ShowToast"/>
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+        </config-file>
+    </platform>
+
+</plugin>

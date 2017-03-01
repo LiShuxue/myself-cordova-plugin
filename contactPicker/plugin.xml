@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="my-plugin-ContactPicker" version="0.0.1">
+  <name>ContactPicker</name>
+  <description>Native Contact Picker for Cordova</description>
+  <js-module src="www/ContactPicker.js">
+    <clobbers target="myPlugin.ContactPicker"/>
+  </js-module>
+  <platform name="ios">
+    <config-file target="config.xml" parent="/*">
+      <feature name="ContactPicker">
+        <param name="ios-package" value="ContactPicker"/>
+      </feature>
+    </config-file>
+    <header-file src="src/ios/ContactPicker.h" />
+    <source-file src="src/ios/ContactPicker.m" />
+    <framework src="AddressBook.framework" />
+    <framework src="AddressBookUI.framework" />
+  </platform>
+  <platform name="android">
+      <config-file target="res/xml/config.xml" parent="/*">
+          <feature name="ContactPicker">
+              <param name="android-package" value="myPlugin.contactpicker.ContactPicker"/>
+          </feature>
+      </config-file>
+      <config-file target="AndroidManifest.xml" parent="/*">
+          <uses-permission android:name="android.permission.READ_CONTACTS" />
+      </config-file>
+      <source-file src="src/android/ContactPicker.java" target-dir="src/myPlugin/contactpicker" />
+  </platform>
+</plugin>
