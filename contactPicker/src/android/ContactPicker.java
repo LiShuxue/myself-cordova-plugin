@@ -37,6 +37,27 @@ public class ContactPicker extends CordovaPlugin {
             return true;
 		}
 
+        if (action.equals("findAll")) {
+            try {
+                Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,null,null, null);
+                JSONObject contact = null;
+                JSONArray contactList = new JSONArray();
+                while (phones.moveToNext()) {
+                    contact = new JSONObject();
+                    String name=phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                    String phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                    contact.put("phoneNumber", phoneNumber);
+                    contact.put("displayName", name);
+                    contactList.put(contact);
+                }
+                phones.close();
+                callbackContext.success(contactList);
+            } catch (Exception e) {
+                callbackContext.error(e.getMessage());
+            }
+            return true;
+        }
+
 		return false;
 	}
 
